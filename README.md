@@ -80,11 +80,14 @@ src/
   StartupConfig.php  Parsing et génération du champ startup
 ```
 
+La version affichée dans l'interface est lue depuis le fichier `VERSION`.
+
 ## Endpoints internes
 
 - `POST /api/connect`
 - `POST /api/logout`
 - `GET /api/session`
+- `GET /api/version`
 - `GET /api/resources`
 - `PUT /api/startup`
 

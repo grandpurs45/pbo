@@ -31,6 +31,10 @@ function handleApi(string $path): void
             $input = [];
         }
 
+        if ($path === '/api/version' && $method === 'GET') {
+            respond(['version' => appVersion()]);
+        }
+
         if ($path === '/api/session' && $method === 'GET') {
             respond([
                 'connected' => isset($_SESSION['proxmox']),
@@ -93,4 +97,15 @@ function respond(array $payload): void
 {
     echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     exit;
+}
+
+function appVersion(): string
+{
+    $versionFile = __DIR__ . '/../VERSION';
+    if (!is_file($versionFile)) {
+        return 'dev';
+    }
+
+    $version = trim((string) file_get_contents($versionFile));
+    return $version !== '' ? $version : 'dev';
 }

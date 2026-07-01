@@ -54,6 +54,15 @@ function setConnected(session) {
     : 'Non connecté';
 }
 
+async function loadVersion() {
+  try {
+    const data = await api('/api/version');
+    $('#app-version').textContent = `v${data.version}`;
+  } catch (error) {
+    $('#app-version').textContent = 'vdev';
+  }
+}
+
 function filteredResources() {
   const query = $('#search').value.trim().toLowerCase();
   const type = $('#type-filter').value;
@@ -396,6 +405,8 @@ $('#apply-btn').addEventListener('click', async () => {
 ['search', 'type-filter', 'node-filter', 'onboot-filter'].forEach((id) => {
   $(`#${id}`).addEventListener('input', renderResources);
 });
+
+loadVersion();
 
 api('/api/session')
   .then(async (session) => {

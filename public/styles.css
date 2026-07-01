@@ -50,6 +50,25 @@ h1 {
   font-size: clamp(1.5rem, 3vw, 2.2rem);
 }
 
+.title-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.version-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  border: 1px solid rgba(147, 197, 253, .45);
+  border-radius: 999px;
+  padding: 2px 9px;
+  color: #bfdbfe;
+  font-size: .78rem;
+  font-weight: 800;
+}
+
 h2 {
   margin-bottom: 16px;
   font-size: 1.15rem;
