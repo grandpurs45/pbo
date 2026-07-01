@@ -21,10 +21,8 @@ apt install -y apache2 php php-curl git
 
 ```bash
 cd /opt
-git clone https://github.com/<owner>/<repo>.git pbo
+git clone https://github.com/grandpurs45/pbo.git pbo
 ```
-
-Remplacer `<owner>/<repo>` par le dépôt GitHub public du projet.
 
 ## Configuration Apache
 
