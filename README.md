@@ -31,16 +31,6 @@ L'application est disponible sur `http://localhost:8080`.
 
 Guide détaillé : [docs/INSTALL-DOCKER.md](docs/INSTALL-DOCKER.md).
 
-## Développement local Windows
-
-```bash
-php -S 127.0.0.1:8080 -t public
-```
-
-L'application stocke ses sessions dans `var/sessions`.
-
-Guide détaillé : [docs/INSTALL-WINDOWS.md](docs/INSTALL-WINDOWS.md).
-
 ## Installation LXC
 
 PBO peut aussi être installé dans un conteneur LXC Debian ou Ubuntu avec Apache, PHP et `php-curl`.
