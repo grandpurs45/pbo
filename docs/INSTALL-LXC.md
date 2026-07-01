@@ -2,6 +2,8 @@
 
 Ce mode permet de tester ou déployer PBO dans un conteneur Linux léger, par exemple sur Proxmox VE.
 
+Statut : procédure validée sur LXC.
+
 Les commandes ci-dessous ciblent Debian ou Ubuntu dans le conteneur.
 
 ## Prérequis LXC

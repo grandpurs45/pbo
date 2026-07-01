@@ -2,6 +2,8 @@
 
 Ce mode est recommandé pour un déploiement simple et reproductible.
 
+Statut : procédure documentée, pas encore validée.
+
 ## Prérequis
 
 - Docker.

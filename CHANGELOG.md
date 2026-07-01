@@ -24,3 +24,5 @@ Premiere release publique du MVP PBO.
 - Aucun secret n'est stocke dans le depot.
 - Les identifiants et tickets Proxmox sont conserves uniquement en session PHP.
 - Les sessions locales sont stockees dans `var/sessions`.
+- La procedure d'installation LXC a ete validee sur un conteneur Debian/Ubuntu.
+- La procedure Docker est documentee mais reste a valider.

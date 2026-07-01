@@ -37,6 +37,13 @@ PBO peut aussi être installé dans un conteneur LXC Debian ou Ubuntu avec Apach
 
 Guide détaillé : [docs/INSTALL-LXC.md](docs/INSTALL-LXC.md).
 
+Statut : installation validée sur LXC.
+
+## Statut des installations
+
+- LXC : validé.
+- Docker / Docker Compose : documenté, à valider.
+
 ## Permissions Proxmox
 
 Pour une utilisation en production, privilégier un API Token dédié avec les permissions minimales nécessaires sur les VM et conteneurs à administrer.
