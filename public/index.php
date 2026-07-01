@@ -68,7 +68,7 @@ function handleApi(string $path): void
                 throw new InvalidArgumentException('Payload de modifications invalide.');
             }
 
-            respond(['updated' => $client->updateStartup($changes)]);
+            respond($client->updateStartup($changes));
         }
 
         http_response_code(404);

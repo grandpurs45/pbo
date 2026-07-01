@@ -101,6 +101,8 @@ function currentChanges() {
         order: nextOrder,
         currentOnboot,
         onboot: nextOnboot,
+        orderChanged,
+        onbootChanged,
         up: resource.startup.up,
         down: resource.startup.down,
       };
@@ -110,6 +112,72 @@ function currentChanges() {
 
 function displayOrder(order) {
   return order ?? 'Non défini';
+}
+
+function buildApplyPayload(changes) {
+  return changes.map((change) => {
+    const payload = {
+      type: change.type,
+      node: change.node,
+      vmid: change.vmid,
+    };
+
+    if (change.orderChanged) {
+      payload.order = change.order;
+      payload.up = change.up;
+      payload.down = change.down;
+    }
+
+    if (change.onbootChanged) {
+      payload.onboot = change.onboot;
+    }
+
+    return payload;
+  });
+}
+
+function buildApplySummary(changes) {
+  const startupChanges = changes.filter((change) => change.orderChanged).length;
+  const onbootChanges = changes.filter((change) => change.onbootChanged).length;
+  const lines = [
+    'Appliquer les modifications dans Proxmox ?',
+    '',
+    `${changes.length} ressource(s) modifiée(s)`,
+    `${startupChanges} changement(s) d'ordre startup`,
+    `${onbootChanges} changement(s) de démarrage automatique`,
+    '',
+    ...changes.slice(0, 8).map((change) => {
+      const details = [];
+      if (change.orderChanged) {
+        details.push(`ordre ${displayOrder(change.from)} -> ${change.order}`);
+      }
+      if (change.onbootChanged) {
+        details.push(`${change.currentOnboot ? 'Auto' : 'Manuel'} -> ${change.onboot ? 'Auto' : 'Manuel'}`);
+      }
+      return `- ${change.name} (${change.type.toUpperCase()} ${change.vmid}) : ${details.join(', ')}`;
+    }),
+  ];
+
+  if (changes.length > 8) {
+    lines.push(`- ... ${changes.length - 8} autre(s) ressource(s)`);
+  }
+
+  return lines.join('\n');
+}
+
+function showApplyResults(data) {
+  const lines = [
+    `Application terminée : ${data.success} succès, ${data.failed} échec(s).`,
+    '',
+    ...data.results.map((result) => {
+      const target = `${result.type.toUpperCase()} ${result.vmid} (${result.node})`;
+      return result.status === 'success'
+        ? `OK  ${target}`
+        : `ERR ${target} : ${result.error || 'Erreur inconnue'}`;
+    }),
+  ];
+
+  alert(lines.join('\n'));
 }
 
 function renderNodeFilter() {
@@ -303,12 +371,22 @@ $('#reload-btn').addEventListener('click', async () => {
 
 $('#apply-btn').addEventListener('click', async () => {
   try {
-    const changes = currentChanges().map(({ name, from, currentOnboot, ...change }) => change);
+    const changes = currentChanges();
+    if (changes.length === 0) {
+      return;
+    }
+
+    if (!confirm(buildApplySummary(changes))) {
+      return;
+    }
+
+    const payload = buildApplyPayload(changes);
     const data = await api('/api/startup', {
       method: 'PUT',
-      body: JSON.stringify({ changes }),
+      body: JSON.stringify({ changes: payload }),
     });
-    showToast(`${data.updated.length} modification(s) appliquée(s).`);
+    showToast(`${data.success} succès, ${data.failed} échec(s).`, data.failed > 0 ? 'error' : 'info');
+    showApplyResults(data);
     await loadResources();
   } catch (error) {
     showToast(error.message, 'error');

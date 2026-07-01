@@ -16,6 +16,8 @@ Cette première base couvre le MVP V1 : connexion à Proxmox, découverte automa
 - Lecture et mise à jour de `onboot` pour gérer le démarrage automatique.
 - Drag & drop pour recalculer `startup.order`.
 - Prévisualisation de l'état actuel et de l'état après modification.
+- Confirmation avant application des changements.
+- Résultat détaillé par ressource après application.
 - Recherche par nom, VMID, type ou node.
 - Filtres par type, node et démarrage automatique.
 - Mode lecture seule.
@@ -49,6 +51,17 @@ Statut : installation validée sur LXC.
 Pour une utilisation en production, privilégier un API Token dédié avec les permissions minimales nécessaires sur les VM et conteneurs à administrer.
 
 Le mode lecture seule permet de tester la découverte et la visualisation sans autoriser les mises à jour.
+
+## Application des changements
+
+PBO demande une confirmation avant toute écriture dans Proxmox.
+
+L'application envoie uniquement les champs réellement modifiés :
+
+- `startup` quand l'ordre de démarrage change ;
+- `onboot` quand le démarrage automatique change.
+
+Après application, PBO affiche un résultat par ressource. Un échec sur une VM ou un conteneur n'empêche pas les autres modifications d'être tentées.
 
 ## Certificats TLS
 

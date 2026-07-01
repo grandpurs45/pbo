@@ -15,6 +15,8 @@ Objectif : fournir une interface stable et légère pour gérer l'ordre de déma
 - Modification du paramètre `onboot`.
 - Réorganisation par drag & drop.
 - Prévisualisation de l'état actuel et de l'état après modification.
+- Confirmation avant application des changements.
+- Résultat détaillé par ressource après application.
 - Application via l'API officielle Proxmox.
 - Recherche et filtres simples.
 - Mode lecture seule.

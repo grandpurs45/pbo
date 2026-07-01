@@ -138,47 +138,69 @@ final class ProxmoxClient
 
     /**
      * @param array<int,array{type:string,node:string,vmid:int,order?:int,onboot?:bool,up?:int|null,down?:int|null}> $changes
-     * @return array<int,array<string,mixed>>
+     * @return array{results:array<int,array<string,mixed>>,success:int,failed:int}
      */
     public function updateStartup(array $changes): array
     {
         $results = [];
+        $success = 0;
+        $failed = 0;
 
         foreach ($changes as $change) {
             $type = (string) ($change['type'] ?? '');
             $node = (string) ($change['node'] ?? '');
             $vmid = (int) ($change['vmid'] ?? 0);
 
-            if (!in_array($type, ['qemu', 'lxc'], true) || $node === '' || $vmid === 0) {
-                throw new InvalidArgumentException('Modification invalide détectée.');
-            }
-
-            $startup = StartupConfig::build(
-                isset($change['order']) ? (int) $change['order'] : null,
-                array_key_exists('up', $change) && $change['up'] !== null ? (int) $change['up'] : null,
-                array_key_exists('down', $change) && $change['down'] !== null ? (int) $change['down'] : null,
-            );
-
-            $payload = [
-                'startup' => $startup,
-            ];
-
-            if (array_key_exists('onboot', $change)) {
-                $payload['onboot'] = (bool) $change['onboot'] ? 1 : 0;
-            }
-
-            $this->request('PUT', sprintf('/nodes/%s/%s/%d/config', rawurlencode($node), $type, $vmid), $payload);
-
-            $results[] = [
+            $result = [
                 'type' => $type,
                 'node' => $node,
                 'vmid' => $vmid,
-                'onboot' => array_key_exists('onboot', $change) ? (bool) $change['onboot'] : null,
-                'startup' => $startup,
+                'status' => 'failed',
+                'payload' => [],
+                'error' => null,
             ];
+
+            try {
+                if (!in_array($type, ['qemu', 'lxc'], true) || $node === '' || $vmid === 0) {
+                    throw new InvalidArgumentException('Modification invalide détectée.');
+                }
+
+                $payload = [];
+
+                if (array_key_exists('order', $change)) {
+                    $payload['startup'] = StartupConfig::build(
+                        (int) $change['order'],
+                        array_key_exists('up', $change) && $change['up'] !== null ? (int) $change['up'] : null,
+                        array_key_exists('down', $change) && $change['down'] !== null ? (int) $change['down'] : null,
+                    );
+                }
+
+                if (array_key_exists('onboot', $change)) {
+                    $payload['onboot'] = (bool) $change['onboot'] ? 1 : 0;
+                }
+
+                if ($payload === []) {
+                    throw new InvalidArgumentException('Aucun champ modifié à appliquer.');
+                }
+
+                $this->request('PUT', sprintf('/nodes/%s/%s/%d/config', rawurlencode($node), $type, $vmid), $payload);
+
+                $result['status'] = 'success';
+                $result['payload'] = $payload;
+                $success++;
+            } catch (Throwable $exception) {
+                $result['error'] = $exception->getMessage();
+                $failed++;
+            }
+
+            $results[] = $result;
         }
 
-        return $results;
+        return [
+            'results' => $results,
+            'success' => $success,
+            'failed' => $failed,
+        ];
     }
 
     /**
