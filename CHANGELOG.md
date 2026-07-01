@@ -1,0 +1,26 @@
+# Changelog
+
+## 0.1.0 - 2026-07-01
+
+Premiere release publique du MVP PBO.
+
+### Ajoute
+
+- Interface web pour visualiser les VM QEMU et conteneurs LXC Proxmox.
+- Connexion a Proxmox par mot de passe ou API Token.
+- Mode lecture seule.
+- Decouverte automatique via l'API officielle Proxmox.
+- Lecture et modification de `startup`.
+- Lecture et modification de `onboot` pour le demarrage automatique.
+- Reorganisation par drag and drop.
+- Previsualisation de l'etat actuel et de l'etat apres modification.
+- Recherche et filtres par type, node et demarrage automatique.
+- Support Docker et Docker Compose.
+- Documentation d'installation Windows/XAMPP, Docker et LXC.
+- Roadmap publique du projet.
+
+### Notes
+
+- Aucun secret n'est stocke dans le depot.
+- Les identifiants et tickets Proxmox sont conserves uniquement en session PHP.
+- Les sessions locales sont stockees dans `var/sessions`.

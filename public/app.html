@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PBO - Proxmox Boot Orchestrator</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">PBO</p>
+      <h1>Proxmox Boot Orchestrator</h1>
+    </div>
+    <div class="session">
+      <span id="session-state">Non connecté</span>
+      <button id="logout-btn" class="ghost" hidden>Déconnexion</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="connect-panel" class="panel">
+      <h2>Connexion Proxmox</h2>
+      <form id="connect-form" class="connect-grid">
+        <label>
+          Hôte ou URL
+          <input name="host" placeholder="https://proxmox.local:8006" required>
+        </label>
+        <label>
+          Authentification
+          <select name="authMode" id="auth-mode">
+            <option value="password">Utilisateur / mot de passe</option>
+            <option value="token">API Token</option>
+          </select>
+        </label>
+        <label class="password-auth">
+          Utilisateur
+          <input name="username" placeholder="root@pam">
+          <small>Format Proxmox requis : utilisateur@realm, par exemple root@pam.</small>
+        </label>
+        <label class="password-auth">
+          Mot de passe
+          <input name="password" type="password">
+        </label>
+        <label class="token-auth" hidden>
+          Utilisateur token
+          <input name="tokenUser" placeholder="root@pam">
+          <small>Le realm est obligatoire, par exemple root@pam.</small>
+        </label>
+        <label class="token-auth" hidden>
+          Token ID
+          <input name="tokenId" placeholder="pbo">
+        </label>
+        <label class="token-auth" hidden>
+          Secret
+          <input name="tokenSecret" type="password">
+        </label>
+        <label class="checkbox">
+          <input name="verifySsl" type="checkbox" checked>
+          Vérifier le certificat TLS
+        </label>
+        <label class="checkbox">
+          <input name="readOnly" type="checkbox">
+          Mode lecture seule
+        </label>
+        <button type="submit">Se connecter</button>
+      </form>
+    </section>
+
+    <section id="workspace" class="workspace" hidden>
+      <div class="toolbar">
+        <label>
+          Recherche
+          <input id="search" placeholder="Nom, VMID ou node">
+        </label>
+        <label>
+          Type
+          <select id="type-filter">
+            <option value="all">Tous</option>
+            <option value="qemu">VM QEMU</option>
+            <option value="lxc">Conteneurs LXC</option>
+          </select>
+        </label>
+        <label>
+          Node
+          <select id="node-filter">
+            <option value="all">Tous</option>
+          </select>
+        </label>
+        <label>
+          Démarrage auto
+          <select id="onboot-filter">
+            <option value="all">Tous</option>
+            <option value="on">Activé</option>
+            <option value="off">Désactivé</option>
+          </select>
+        </label>
+        <button id="reload-btn" class="ghost">Actualiser</button>
+      </div>
+
+      <div class="summary">
+        <span id="resource-count">0 ressource</span>
+        <span id="change-count">0 modification</span>
+        <span id="readonly-badge" class="badge" hidden>Lecture seule</span>
+      </div>
+
+      <div class="layout">
+        <section class="panel resources-panel">
+          <div class="panel-heading">
+            <h2>Ordre de démarrage</h2>
+            <p>Glissez les lignes pour recalculer les valeurs <code>startup.order</code>.</p>
+          </div>
+          <div id="resource-list" class="resource-list"></div>
+          <p id="empty-state" class="empty" hidden>Aucune ressource ne correspond aux filtres.</p>
+        </section>
+
+        <aside class="panel preview-panel">
+          <h2>Prévisualisation</h2>
+          <div id="preview-list" class="preview-list"></div>
+          <button id="apply-btn" disabled>Appliquer via l’API Proxmox</button>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="/app.js"></script>
+</body>
+</html>

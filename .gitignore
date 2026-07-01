@@ -1,0 +1,6 @@
+.env
+*.log
+var/sessions/*
+!var/sessions/.gitkeep
+vendor/
+node_modules/
