@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.1 - 2026-07-02
+
+Release de stabilisation apres premiers tests locaux et LXC.
+
+### Ajoute
+
+- Affichage de la version dans l'interface depuis le fichier `VERSION`.
+- Captures d'ecran de presentation dans le README.
+- Confirmation avant application des changements dans Proxmox.
+- Resultat detaille par ressource apres application.
+- Statut de validation des installations LXC et Docker dans la documentation.
+
+### Corrige
+
+- Correction de l'affichage du mode actif lecture seule/ecriture.
+- Parsing strict du mode lecture seule cote serveur.
+- Cache-busting des assets CSS et JS pour eviter l'ancien frontend en cache.
+- URL reelle du depot GitHub dans la documentation LXC.
+- README simplifie en retirant la section de developpement local Windows.
+
 ## 0.1.0 - 2026-07-01
 
 Premiere release publique du MVP PBO.
