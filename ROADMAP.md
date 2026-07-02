@@ -12,6 +12,7 @@ Objectif : fournir une interface stable et légère pour gérer l'ordre de déma
 - Recommandation d'un utilisateur Proxmox dédié pour porter le token.
 - Clarification des ACL utilisateur/token Proxmox.
 - Captures d'écran pour la création du token Proxmox.
+- Alerte de documentation pour le secret du token Proxmox.
 - Support VM QEMU.
 - Support conteneurs LXC.
 - Découverte automatique des ressources.

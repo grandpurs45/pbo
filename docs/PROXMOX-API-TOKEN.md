@@ -70,7 +70,8 @@ Privilege Separation : activé
 
 ![Création du token API](assets/screenshots/proxmox-token/04-api-token-add.png)
 
-<p style="color:red;"><strong>COPIER IMMÉDIATEMENT LE SECRET. PROXMOX NE L'AFFICHE QU'UNE SEULE FOIS.</strong></p>
+> [!IMPORTANT]
+> **COPIER IMMÉDIATEMENT LE SECRET. PROXMOX NE L'AFFICHE QU'UNE SEULE FOIS.**
 
 ### 5. Donner le rôle au token
 

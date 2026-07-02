@@ -10,6 +10,7 @@ Release documentation et correction du formulaire de connexion.
 - Recommandation d'un utilisateur Proxmox dédié pour porter le token PBO.
 - Clarification des ACL à appliquer à l'utilisateur dédié et au token Proxmox.
 - Captures d'écran pour la création du token Proxmox.
+- Alerte GitHub native pour rappeler de copier immédiatement le secret du token.
 
 ### Corrige
 
