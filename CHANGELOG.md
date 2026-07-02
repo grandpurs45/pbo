@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.2 - 2026-07-02
+
+Release UX pour securiser les changements locaux avant application.
+
+### Ajoute
+
+- Bouton d'annulation des modifications locales avant application.
+- Confirmation avant annulation des modifications locales.
+- Mise en evidence du bouton d'annulation lorsqu'il devient disponible.
+
 ## 0.1.1 - 2026-07-02
 
 Release de stabilisation apres premiers tests locaux et LXC.

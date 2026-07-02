@@ -147,6 +147,24 @@ button:disabled {
   border-color: currentColor;
 }
 
+.small-action {
+  min-height: 30px;
+  padding: 4px 10px;
+  font-size: .84rem;
+}
+
+.reset-action:not(:disabled) {
+  border-color: #f59e0b;
+  background: #fffbeb;
+  color: #92400e;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, .14);
+}
+
+.reset-action:hover:not(:disabled) {
+  background: #fef3c7;
+  color: #78350f;
+}
+
 .checkbox {
   display: flex;
   align-items: center;
@@ -177,6 +195,7 @@ button:disabled {
 .summary {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
   color: var(--muted);
 }

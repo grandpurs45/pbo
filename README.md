@@ -1,6 +1,6 @@
 # PBO - Proxmox Boot Orchestrator
 
-Version actuelle : `0.1.1`
+Version actuelle : `0.1.2`
 
 PBO est une interface web légère pour visualiser et modifier l'ordre de démarrage des VM QEMU et conteneurs LXC d'un cluster Proxmox VE.
 
@@ -32,6 +32,8 @@ Cette première base couvre le MVP V1 : connexion à Proxmox, découverte automa
 - Prévisualisation de l'état actuel et de l'état après modification.
 - Confirmation avant application des changements.
 - Résultat détaillé par ressource après application.
+- Annulation des modifications locales avant application.
+- Confirmation avant annulation des modifications locales.
 - Recherche par nom, VMID, type ou node.
 - Filtres par type, node et démarrage automatique.
 - Mode lecture seule.

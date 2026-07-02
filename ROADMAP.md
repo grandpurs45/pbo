@@ -17,6 +17,8 @@ Objectif : fournir une interface stable et légère pour gérer l'ordre de déma
 - Prévisualisation de l'état actuel et de l'état après modification.
 - Confirmation avant application des changements.
 - Résultat détaillé par ressource après application.
+- Annulation des modifications locales avant application.
+- Confirmation avant annulation des modifications locales.
 - Application via l'API officielle Proxmox.
 - Recherche et filtres simples.
 - Mode lecture seule.

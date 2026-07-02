@@ -4,6 +4,8 @@ const state = {
   resources: [],
   order: [],
   onboot: {},
+  initialOrder: [],
+  initialOnboot: {},
   draggedId: null,
 };
 
@@ -119,6 +121,22 @@ function currentChanges() {
       };
     })
     .filter(Boolean);
+}
+
+function resetLocalChanges() {
+  const changes = currentChanges();
+  if (changes.length === 0) {
+    return;
+  }
+
+  if (!confirm(`Annuler ${changes.length} modification(s) locale(s) non appliquée(s) ?`)) {
+    return;
+  }
+
+  state.order = [...state.initialOrder];
+  state.onboot = { ...state.initialOnboot };
+  renderResources();
+  showToast('Modifications locales annulées.');
 }
 
 function displayOrder(order) {
@@ -255,6 +273,7 @@ function renderPreview() {
     });
 
   $('#change-count').textContent = `${changes.length} modification${changes.length > 1 ? 's' : ''}`;
+  $('#reset-btn').disabled = changes.length === 0;
   $('#preview-list').innerHTML = previewItems.length === 0
     ? '<p class="empty">Aucune ressource en démarrage automatique à prévisualiser.</p>'
     : previewItems.map((item) => `
@@ -325,6 +344,8 @@ async function loadResources() {
   state.resources = data.resources;
   state.order = data.resources.map((resource) => resource.id);
   state.onboot = Object.fromEntries(data.resources.map((resource) => [resource.id, Boolean(resource.onboot)]));
+  state.initialOrder = [...state.order];
+  state.initialOnboot = { ...state.onboot };
   renderNodeFilter();
   renderResources();
 }
@@ -368,6 +389,8 @@ $('#logout-btn').addEventListener('click', async () => {
   state.resources = [];
   state.order = [];
   state.onboot = {};
+  state.initialOrder = [];
+  state.initialOnboot = {};
   setConnected({ connected: false });
 });
 
@@ -379,6 +402,8 @@ $('#reload-btn').addEventListener('click', async () => {
     showToast(error.message, 'error');
   }
 });
+
+$('#reset-btn').addEventListener('click', resetLocalChanges);
 
 $('#apply-btn').addEventListener('click', async () => {
   try {
