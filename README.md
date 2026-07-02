@@ -35,6 +35,7 @@ Cette première base couvre le MVP V1 : connexion à Proxmox, découverte automa
 - Résultat détaillé par ressource après application.
 - Annulation des modifications locales avant application.
 - Confirmation avant annulation des modifications locales.
+- États de chargement pendant connexion, actualisation et application.
 - Recherche par nom, VMID, type ou node.
 - Filtres par type, node et démarrage automatique.
 - Mode lecture seule.

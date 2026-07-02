@@ -7,6 +7,7 @@ const state = {
   initialOrder: [],
   initialOnboot: {},
   draggedId: null,
+  busy: null,
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -34,6 +35,35 @@ function showToast(message, kind = 'info') {
   setTimeout(() => {
     toast.hidden = true;
   }, 4500);
+}
+
+function setBusy(action) {
+  state.busy = action;
+  syncActionButtons();
+}
+
+function syncActionButtons(changes = currentChanges()) {
+  const busy = state.busy;
+  const busyLabels = {
+    connect: 'Connexion...',
+    reload: 'Actualisation...',
+    apply: 'Application...',
+    logout: 'Déconnexion...',
+  };
+
+  $('#connect-btn').disabled = busy !== null;
+  $('#connect-btn').textContent = busy === 'connect' ? busyLabels.connect : 'Se connecter';
+
+  $('#reload-btn').disabled = busy !== null;
+  $('#reload-btn').textContent = busy === 'reload' ? busyLabels.reload : 'Actualiser';
+
+  $('#logout-btn').disabled = busy !== null;
+  $('#logout-btn').textContent = busy === 'logout' ? busyLabels.logout : 'Déconnexion';
+  $('#reset-btn').disabled = busy !== null || changes.length === 0;
+  $('#apply-btn').disabled = busy !== null || changes.length === 0 || state.readOnly;
+
+  $('#busy-badge').hidden = busy === null;
+  $('#busy-badge').textContent = busy !== null ? busyLabels[busy] : '';
 }
 
 function formToObject(form) {
@@ -273,7 +303,6 @@ function renderPreview() {
     });
 
   $('#change-count').textContent = `${changes.length} modification${changes.length > 1 ? 's' : ''}`;
-  $('#reset-btn').disabled = changes.length === 0;
   $('#preview-list').innerHTML = previewItems.length === 0
     ? '<p class="empty">Aucune ressource en démarrage automatique à prévisualiser.</p>'
     : previewItems.map((item) => `
@@ -299,7 +328,7 @@ function renderPreview() {
         </div>
       `).join('');
 
-  $('#apply-btn').disabled = changes.length === 0 || state.readOnly;
+  syncActionButtons(changes);
 }
 
 function bindOnbootToggles() {
@@ -376,6 +405,7 @@ $('#auth-mode').addEventListener('change', () => {
 $('#connect-form').addEventListener('submit', async (event) => {
   event.preventDefault();
   try {
+    setBusy('connect');
     const data = await api('/api/connect', {
       method: 'POST',
       body: JSON.stringify(formToObject(event.currentTarget)),
@@ -385,25 +415,37 @@ $('#connect-form').addEventListener('submit', async (event) => {
     showToast('Connexion établie.');
   } catch (error) {
     showToast(error.message, 'error');
+  } finally {
+    setBusy(null);
   }
 });
 
 $('#logout-btn').addEventListener('click', async () => {
-  await api('/api/logout', { method: 'POST', body: '{}' });
-  state.resources = [];
-  state.order = [];
-  state.onboot = {};
-  state.initialOrder = [];
-  state.initialOnboot = {};
-  setConnected({ connected: false });
+  try {
+    setBusy('logout');
+    await api('/api/logout', { method: 'POST', body: '{}' });
+    state.resources = [];
+    state.order = [];
+    state.onboot = {};
+    state.initialOrder = [];
+    state.initialOnboot = {};
+    setConnected({ connected: false });
+  } catch (error) {
+    showToast(error.message, 'error');
+  } finally {
+    setBusy(null);
+  }
 });
 
 $('#reload-btn').addEventListener('click', async () => {
   try {
+    setBusy('reload');
     await loadResources();
     showToast('Ressources actualisées.');
   } catch (error) {
     showToast(error.message, 'error');
+  } finally {
+    setBusy(null);
   }
 });
 
@@ -421,6 +463,7 @@ $('#apply-btn').addEventListener('click', async () => {
     }
 
     const payload = buildApplyPayload(changes);
+    setBusy('apply');
     const data = await api('/api/startup', {
       method: 'PUT',
       body: JSON.stringify({ changes: payload }),
@@ -430,6 +473,8 @@ $('#apply-btn').addEventListener('click', async () => {
     await loadResources();
   } catch (error) {
     showToast(error.message, 'error');
+  } finally {
+    setBusy(null);
   }
 });
 

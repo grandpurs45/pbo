@@ -66,7 +66,7 @@
           <input name="readOnly" type="checkbox">
           Mode lecture seule
         </label>
-        <button type="submit">Se connecter</button>
+        <button id="connect-btn" type="submit">Se connecter</button>
       </form>
     </section>
 
@@ -105,6 +105,7 @@
         <span id="resource-count">0 ressource</span>
         <span id="change-count">0 modification</span>
         <span id="mode-badge" class="badge" hidden>Mode inconnu</span>
+        <span id="busy-badge" class="badge busy" hidden>Chargement...</span>
         <button id="reset-btn" class="ghost small-action reset-action" disabled>Annuler les modifications</button>
       </div>
 

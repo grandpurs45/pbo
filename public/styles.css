@@ -223,6 +223,11 @@ button:disabled {
   color: #3730a3;
 }
 
+.badge.busy {
+  background: #fef3c7;
+  color: #92400e;
+}
+
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;
