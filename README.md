@@ -1,6 +1,6 @@
 # PBO - Proxmox Boot Orchestrator
 
-Version actuelle : `0.1.2`
+Version actuelle : `0.1.3`
 
 PBO est une interface web légère pour visualiser et modifier l'ordre de démarrage des VM QEMU et conteneurs LXC d'un cluster Proxmox VE.
 
@@ -23,6 +23,7 @@ Cette première base couvre le MVP V1 : connexion à Proxmox, découverte automa
 ## Fonctionnalités V1
 
 - Connexion à un cluster Proxmox par mot de passe ou API Token.
+- Affichage conditionnel des champs selon le mode d'authentification.
 - Support des VM QEMU et des conteneurs LXC.
 - Découverte via `/cluster/resources`.
 - Lecture des configurations via `/nodes/{node}/{qemu|lxc}/{vmid}/config`.
@@ -65,6 +66,8 @@ Statut : installation validée sur LXC.
 ## Permissions Proxmox
 
 Pour une utilisation en production, privilégier un API Token dédié avec les permissions minimales nécessaires sur les VM et conteneurs à administrer.
+
+L'authentification par API Token est le mode recommandé. Voir [docs/PROXMOX-API-TOKEN.md](docs/PROXMOX-API-TOKEN.md).
 
 Le mode lecture seule permet de tester la découverte et la visualisation sans autoriser les mises à jour.
 

@@ -65,3 +65,5 @@ Points recommandés :
 - API Token Proxmox dédié.
 - Permissions Proxmox limitées aux ressources nécessaires.
 - Vérification TLS Proxmox activée avec un certificat valide.
+
+Guide recommandé : [PROXMOX-API-TOKEN.md](PROXMOX-API-TOKEN.md).

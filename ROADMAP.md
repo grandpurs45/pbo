@@ -7,6 +7,8 @@ Statut : premiere release MVP publiee.
 Objectif : fournir une interface stable et légère pour gérer l'ordre de démarrage natif Proxmox.
 
 - Connexion à un cluster Proxmox.
+- Affichage conditionnel des champs selon le mode d'authentification.
+- Documentation de création d'un API Token Proxmox recommandé.
 - Support VM QEMU.
 - Support conteneurs LXC.
 - Découverte automatique des ressources.

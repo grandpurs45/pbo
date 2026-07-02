@@ -359,14 +359,18 @@ function escapeHtml(value) {
     .replaceAll("'", '&#039;');
 }
 
-$('#auth-mode').addEventListener('change', (event) => {
-  const tokenMode = event.target.value === 'token';
+function syncAuthFields() {
+  const tokenMode = $('#auth-mode').value === 'token';
   $$('.password-auth').forEach((field) => {
     field.hidden = tokenMode;
   });
   $$('.token-auth').forEach((field) => {
     field.hidden = !tokenMode;
   });
+}
+
+$('#auth-mode').addEventListener('change', () => {
+  syncAuthFields();
 });
 
 $('#connect-form').addEventListener('submit', async (event) => {
@@ -434,6 +438,7 @@ $('#apply-btn').addEventListener('click', async () => {
 });
 
 loadVersion();
+syncAuthFields();
 
 api('/api/session')
   .then(async (session) => {

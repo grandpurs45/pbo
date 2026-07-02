@@ -95,3 +95,5 @@ https://<proxmox-host>:8006/api2/json
 ```
 
 En production, utiliser un API Token Proxmox dédié avec des permissions minimales.
+
+Guide recommandé : [PROXMOX-API-TOKEN.md](PROXMOX-API-TOKEN.md).

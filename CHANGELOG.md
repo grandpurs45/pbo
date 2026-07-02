@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.3 - 2026-07-02
+
+Release documentation et correction du formulaire de connexion.
+
+### Ajoute
+
+- Documentation de création d'un API Token Proxmox recommandé pour PBO.
+
+### Corrige
+
+- Affichage conditionnel des champs de connexion selon le mode d'authentification.
+
 ## 0.1.2 - 2026-07-02
 
 Release UX pour securiser les changements locaux avant application.
