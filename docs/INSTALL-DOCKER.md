@@ -62,7 +62,7 @@ Pour une exposition en production, placer idéalement PBO derrière un reverse p
 Points recommandés :
 
 - HTTPS obligatoire côté utilisateur.
-- API Token Proxmox dédié.
+- Utilisateur Proxmox dédié et API Token Proxmox dédié.
 - Permissions Proxmox limitées aux ressources nécessaires.
 - Vérification TLS Proxmox activée avec un certificat valide.
 

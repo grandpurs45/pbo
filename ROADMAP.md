@@ -9,6 +9,7 @@ Objectif : fournir une interface stable et légère pour gérer l'ordre de déma
 - Connexion à un cluster Proxmox.
 - Affichage conditionnel des champs selon le mode d'authentification.
 - Documentation de création d'un API Token Proxmox recommandé.
+- Recommandation d'un utilisateur Proxmox dédié pour porter le token.
 - Support VM QEMU.
 - Support conteneurs LXC.
 - Découverte automatique des ressources.

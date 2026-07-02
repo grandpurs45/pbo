@@ -65,7 +65,7 @@ Statut : installation validée sur LXC.
 
 ## Permissions Proxmox
 
-Pour une utilisation en production, privilégier un API Token dédié avec les permissions minimales nécessaires sur les VM et conteneurs à administrer.
+Pour une utilisation en production, privilégier un utilisateur Proxmox dédié et un API Token dédié avec les permissions minimales nécessaires sur les VM et conteneurs à administrer.
 
 L'authentification par API Token est le mode recommandé. Voir [docs/PROXMOX-API-TOKEN.md](docs/PROXMOX-API-TOKEN.md).
 

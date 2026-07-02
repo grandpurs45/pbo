@@ -94,6 +94,6 @@ Le conteneur LXC n'a pas besoin d'accès privilégié pour exécuter PBO. Il doi
 https://<proxmox-host>:8006/api2/json
 ```
 
-En production, utiliser un API Token Proxmox dédié avec des permissions minimales.
+En production, utiliser un utilisateur Proxmox dédié et un API Token Proxmox dédié avec des permissions minimales.
 
 Guide recommandé : [PROXMOX-API-TOKEN.md](PROXMOX-API-TOKEN.md).
