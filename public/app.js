@@ -44,7 +44,7 @@ function formToObject(form) {
 
 function setConnected(session) {
   state.connected = session.connected;
-  state.readOnly = Boolean(session.readOnly);
+  state.readOnly = session.mode === 'read-only' || session.readOnly === true;
   $('#connect-panel').hidden = state.connected;
   $('#workspace').hidden = !state.connected;
   $('#logout-btn').hidden = !state.connected;

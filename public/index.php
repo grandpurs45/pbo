@@ -36,19 +36,23 @@ function handleApi(string $path): void
         }
 
         if ($path === '/api/session' && $method === 'GET') {
+            $readOnly = sessionReadOnly();
             respond([
                 'connected' => isset($_SESSION['proxmox']),
-                'readOnly' => (bool) ($_SESSION['readOnly'] ?? false),
+                'readOnly' => $readOnly,
+                'mode' => $readOnly ? 'read-only' : 'write',
                 'baseUrl' => $_SESSION['proxmox']['baseUrl'] ?? null,
             ]);
         }
 
         if ($path === '/api/connect' && $method === 'POST') {
             $_SESSION['proxmox'] = ProxmoxClient::authenticate($input);
-            $_SESSION['readOnly'] = (bool) ($input['readOnly'] ?? false);
+            $_SESSION['readOnly'] = parseBoolean($input['readOnly'] ?? false);
+            $readOnly = sessionReadOnly();
             respond([
                 'connected' => true,
-                'readOnly' => $_SESSION['readOnly'],
+                'readOnly' => $readOnly,
+                'mode' => $readOnly ? 'read-only' : 'write',
                 'baseUrl' => $_SESSION['proxmox']['baseUrl'] ?? null,
             ]);
         }
@@ -66,7 +70,7 @@ function handleApi(string $path): void
         }
 
         if ($path === '/api/startup' && $method === 'PUT') {
-            if ((bool) ($_SESSION['readOnly'] ?? false)) {
+            if (sessionReadOnly()) {
                 http_response_code(403);
                 respond(['error' => 'Mode lecture seule actif.']);
             }
@@ -101,6 +105,28 @@ function respond(array $payload): void
 {
     echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     exit;
+}
+
+function sessionReadOnly(): bool
+{
+    return parseBoolean($_SESSION['readOnly'] ?? false);
+}
+
+function parseBoolean(mixed $value): bool
+{
+    if (is_bool($value)) {
+        return $value;
+    }
+
+    if (is_int($value)) {
+        return $value === 1;
+    }
+
+    if (is_string($value)) {
+        return in_array(strtolower(trim($value)), ['1', 'true', 'yes', 'on', 'read-only'], true);
+    }
+
+    return false;
 }
 
 function appVersion(): string
