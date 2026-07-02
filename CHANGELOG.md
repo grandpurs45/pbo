@@ -17,6 +17,8 @@ Premiere release publique du MVP PBO.
 - Confirmation avant application des changements.
 - Resultat detaille par ressource apres application.
 - Affichage de la version dans l'interface depuis le fichier `VERSION`.
+- Affichage explicite du mode actif : lecture seule ou ecriture.
+- Captures d'ecran de presentation dans le README.
 - Recherche et filtres par type, node et demarrage automatique.
 - Support Docker et Docker Compose.
 - Documentation d'installation Windows/XAMPP, Docker et LXC.

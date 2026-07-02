@@ -48,7 +48,9 @@ function setConnected(session) {
   $('#connect-panel').hidden = state.connected;
   $('#workspace').hidden = !state.connected;
   $('#logout-btn').hidden = !state.connected;
-  $('#readonly-badge').hidden = !state.readOnly;
+  $('#mode-badge').hidden = !state.connected;
+  $('#mode-badge').textContent = state.readOnly ? 'Lecture seule' : 'Écriture';
+  $('#mode-badge').className = `badge ${state.readOnly ? 'readonly' : 'write'}`;
   $('#session-state').textContent = state.connected
     ? `Connecté à ${session.baseUrl || 'Proxmox'}`
     : 'Non connecté';

@@ -190,6 +190,16 @@ button:disabled {
   font-weight: 700;
 }
 
+.badge.write {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.badge.readonly {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;

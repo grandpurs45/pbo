@@ -6,6 +6,20 @@ PBO est une interface web légère pour visualiser et modifier l'ordre de démar
 
 Cette première base couvre le MVP V1 : connexion à Proxmox, découverte automatique des ressources, vue globale, recherche, filtres, réorganisation par drag & drop, prévisualisation et application des paramètres `startup` via l'API officielle Proxmox.
 
+## Aperçu
+
+### Connexion Proxmox
+
+![Connexion Proxmox](docs/assets/screenshots/login.png)
+
+### Vue principale
+
+![Vue principale](docs/assets/screenshots/dashboard.png)
+
+### Prévisualisation
+
+![Prévisualisation des changements](docs/assets/screenshots/preview.png)
+
 ## Fonctionnalités V1
 
 - Connexion à un cluster Proxmox par mot de passe ou API Token.

@@ -46,7 +46,11 @@ function handleApi(string $path): void
         if ($path === '/api/connect' && $method === 'POST') {
             $_SESSION['proxmox'] = ProxmoxClient::authenticate($input);
             $_SESSION['readOnly'] = (bool) ($input['readOnly'] ?? false);
-            respond(['connected' => true, 'readOnly' => $_SESSION['readOnly']]);
+            respond([
+                'connected' => true,
+                'readOnly' => $_SESSION['readOnly'],
+                'baseUrl' => $_SESSION['proxmox']['baseUrl'] ?? null,
+            ]);
         }
 
         if ($path === '/api/logout' && $method === 'POST') {
