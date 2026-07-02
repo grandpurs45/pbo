@@ -26,6 +26,8 @@ Realm     : Proxmox VE authentication server
 User ID   : pbo@pve
 ```
 
+![Création de l'utilisateur dédié](assets/screenshots/proxmox-token/01-users-add.png)
+
 ### 2. Créer le rôle PBO
 
 Aller dans **Datacenter > Permissions > Roles > Create**.
@@ -36,6 +38,8 @@ Créer un rôle `PBORole` avec :
 VM.Audit
 VM.Config.Options
 ```
+
+![Création du rôle PBO](assets/screenshots/proxmox-token/02-role-create.png)
 
 ### 3. Donner le rôle à l'utilisateur
 
@@ -50,6 +54,8 @@ Role      : PBORole
 Propagate : activé
 ```
 
+![Permission utilisateur PBO](assets/screenshots/proxmox-token/03-user-permission.png)
+
 ### 4. Créer le token
 
 Aller dans **Datacenter > Permissions > API Tokens > Add**.
@@ -62,7 +68,9 @@ Token ID             : pbo
 Privilege Separation : activé
 ```
 
-Copier immédiatement le **Secret**. Proxmox ne l'affiche qu'une seule fois.
+![Création du token API](assets/screenshots/proxmox-token/04-api-token-add.png)
+
+<p style="color:red;"><strong>COPIER IMMÉDIATEMENT LE SECRET. PROXMOX NE L'AFFICHE QU'UNE SEULE FOIS.</strong></p>
 
 ### 5. Donner le rôle au token
 
@@ -76,6 +84,8 @@ API Token : pbo@pve!pbo
 Role      : PBORole
 Propagate : activé
 ```
+
+![Permission token PBO](assets/screenshots/proxmox-token/06-token-permission.png)
 
 ## Alternative CLI
 

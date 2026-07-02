@@ -9,6 +9,7 @@ Release documentation et correction du formulaire de connexion.
 - Documentation de création d'un API Token Proxmox recommandé pour PBO.
 - Recommandation d'un utilisateur Proxmox dédié pour porter le token PBO.
 - Clarification des ACL à appliquer à l'utilisateur dédié et au token Proxmox.
+- Captures d'écran pour la création du token Proxmox.
 
 ### Corrige
 
